@@ -107,6 +107,12 @@ const char *bb_pm_method_string[PM_METHODS_COUNT];
 /* String buffer size */
 #define BUFFER_SIZE 1024
 
+enum card_type {
+    CARD_UNKNOWN,
+    CARD_NVIDIA,
+    CARD_ATI,
+};
+
 /* Structure containing the status of the application */
 struct bb_status_struct {
     enum verbosity_level verbosity; ///Verbosity level of messages.
@@ -118,6 +124,7 @@ struct bb_status_struct {
     int x_pipe[2];//pipes for reading/writing output from X's stdout/stderr
     gboolean use_syslog;
     char *program_name;
+    enum card_type card_type;
 };
 
 /* Structure containing the configuration. */
@@ -138,7 +145,7 @@ struct bb_config_struct {
     char * primus_ld_path; /// LD_LIBRARY_PATH containing primus libGL.so.1
     char * vgl_compress; /// VGL transport method.
     char * vglrun_options; /* extra options passed to vglrun */
-    char * driver; /// Driver to use (nvidia or nouveau).
+    char * driver; /// Driver to use (nvidia, nouveau, fglrx, radeon).
     char * module_name; /* Kernel module to be loaded for the driver.
                                     * If empty, driver will be used. This is
                                     * for Ubuntu which uses nvidia-current */
